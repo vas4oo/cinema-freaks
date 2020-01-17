@@ -110,7 +110,8 @@ label {
   padding: 15px 10px 14px 10px;
 }
 .app-content{
- padding: 64px 20px 76px 20px;
+ padding: 64px 20px 0 20px;
+ height: calc(100vh - 116px);
 }
 /* Main Navigation */
 .app-navigation {

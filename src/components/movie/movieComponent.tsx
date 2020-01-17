@@ -27,6 +27,7 @@ class MovieComponent extends React.Component<IProps, IState>{
     }
 
     componentDidMount() {
+        localStorage.setItem('qe', 'asdd')
         this.getAllMovies();
     }
 

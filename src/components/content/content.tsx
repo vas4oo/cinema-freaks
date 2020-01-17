@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { connect } from 'react-redux';
 import HomeComponent from '../home/homeComponent';
 import MovieComponent from '../movie/movieComponent';
+import LoginComponent from '../login/loginComponent';
 
 const NoMatch = () => (
     <div className="app-content">
@@ -31,6 +32,7 @@ class Content extends React.Component<IProps, IState> {
                     <Route exact path="/" component={HomeComponent} />
                     <Route exact path="/index.html" component={HomeComponent} />
                     <Route exact path="/movies" component={MovieComponent} />
+                    <Route exact path="/login" component={LoginComponent} />
 
                     {/* <Route exact path="/user/dashboard"
             component={this.аuthService.isAuthenticated() ? UserDashboardComponent : NotAuthenticatedComponent} /> */}

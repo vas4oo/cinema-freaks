@@ -1,12 +1,8 @@
 import * as actionTypes from '../actionTypes';
 
 const initialState = {
-    lang: localStorage.getItem('lang') ? localStorage.getItem('lang') : 'bg',
-    medicineSearchLetter: '',
-    medicineSearchName: '',
     isUserLogged: false,
     isUserJustLogged: false,
-    isNotificationUpdated: false,
     medicineSearchActiveIngredient: ''
 }
 
