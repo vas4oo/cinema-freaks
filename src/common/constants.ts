@@ -29,3 +29,9 @@ export const snackbar = createMuiTheme({
 
     }
 });
+
+export const device = {
+    desktop: 1025,
+    tablet: 768,
+    phone: 500
+}

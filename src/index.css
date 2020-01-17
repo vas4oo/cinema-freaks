@@ -8,6 +8,9 @@ body {
   font-size: 14px;
   color: #444;
 }
+body a{
+  text-decoration: none;
+}
 h1, h2, h3, h4, h5 {
   font-weight: 600;    
 }
@@ -107,7 +110,7 @@ label {
   padding: 15px 10px 14px 10px;
 }
 .app-content{
- padding: 64px 20px 130px 20px;
+ padding: 64px 20px 76px 20px;
 }
 /* Main Navigation */
 .app-navigation {
@@ -498,6 +501,12 @@ th {
 
 .app-content .app-content{
   padding: 0;
+}
+
+.social-links{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 @keyframes listSlideIn{
@@ -1259,30 +1268,26 @@ th {
   .app-footer-web{
     display: inherit;
     width: 100%;
-    height: 160px;
     background-color: #2b415f;
-    
     font-size: 0.9em;
     color: #c6c6c6;
   }
 
   .web-footer{
     width: 100%;
-    height: 150px;
-    text-align: left;
+    height: 100px;
     background-color: #2b415f;
   }
 
   .web-footer-container {
-    max-width: 1500px;
     margin: 0 auto; 
+    display: flex;
+    justify-content: center;
     padding: 15px;
   }
 
   .web-footer-content {
-    width: 25%;
-    padding: 10px;
-    float: left;
+    width: 33%;
     padding: 10px 10px 10px 0px;
     line-height: 1.6em;
   }
@@ -1311,19 +1316,23 @@ th {
   
   .web-footer-small{
     width: 100%;
-    height: 40px;
     background-color: #25374f;
     text-align: left;
   }
 
   .web-footer-small-container {
     max-width: 1500px;
-    margin: 0 auto; 
-    padding: 15px;
+    margin: 0 auto;
+    height: 50px;
+    /* padding: 15px 15px 0 15px; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .footer-menu {
-    float: right;
+    width: 33%;
+    text-align: center;
   }
   
   .footer-menu a {
@@ -1337,6 +1346,7 @@ th {
   }
   
   .content-rights{
+    width: 33%;
     float: left;
   }
 

@@ -52,7 +52,7 @@ class MovieComponent extends React.Component<IProps, IState>{
         const { movies, isLoading } = this.state;
         console.log(movies);
         return (
-            <div>
+            <div className="app-content">
                 <Growl ref={(el) => this.growl = el} />
                 {isLoading ? <Spinner /> : null}
 
