@@ -31,7 +31,8 @@
     "react-router-dom": "5.1.2",
     "react-scripts": "3.3.0",
     "redux": "4.0.5",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "concurrently": "5.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -40,7 +41,7 @@
     "eject": "react-scripts eject",
     "start-server": "json-server --watch ./db.json",
     "start-auth": "node server.js",
-    "full-start": "react-scripts start && json-server --watch ./db.json && node server.js"
+    "full-start": "concurrently \"react-scripts start\" \"json-server -p 3001 --watch ./db.json\" \"node server.js\""
   },
   "eslintConfig": {
     "extends": "react-app"
