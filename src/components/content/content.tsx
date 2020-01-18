@@ -2,7 +2,7 @@ import * as React from "react";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import HomeComponent from "../home/homeComponent";
-import MovieComponent from "../movie/movieComponent";
+import MovieListComponent from "../movie/movieListComponent";
 import AuthService from "../../services/authService";
 
 const NoMatch = () => (
@@ -23,7 +23,7 @@ interface IProps {
   isUserLogged: boolean;
 }
 
-interface IState {}
+interface IState { }
 
 class Content extends React.Component<IProps, IState> {
   аuthService = new AuthService();
@@ -34,7 +34,7 @@ class Content extends React.Component<IProps, IState> {
         <Switch>
           <Route exact path="/" component={HomeComponent} />
           <Route exact path="/index.html" component={HomeComponent} />
-          <Route exact path="/movies" component={MovieComponent} />
+          <Route exact path="/movies" component={MovieListComponent} />
 
           {/* <Route exact path="/user/dashboard"
             component={this.аuthService.isAuthenticated() ? UserDashboardComponent : NotAuthenticatedComponent} /> */}

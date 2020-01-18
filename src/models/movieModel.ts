@@ -4,4 +4,5 @@ export class MovieModel {
     public releaseDate: string;
     public director: string;
     public imdbLink: string;
+    public imgSrc: string;
 }

@@ -5,14 +5,16 @@
             "title": "Inception",
             "releaseDate": "23.07.2010",
             "director": "Christopher Nolan",
-            "imdbLink": "https://www.imdb.com/title/tt1375666/"
+            "imdbLink": "https://www.imdb.com/title/tt1375666/",
+            "imgSrc": "./assets/images/inception-poster.jpg"
         },
         {
             "movieId": 2,
             "title": "Fight Club",
             "releaseDate": "15.10.1999",
             "director": "David Fincher",
-            "imdbLink": "https://www.imdb.com/title/tt0137523/?ref_=tt_sims_tt"
+            "imdbLink": "https://www.imdb.com/title/tt0137523/?ref_=tt_sims_tt",
+            "imgSrc": "./assets/images/fight-club.jpg"
         }
     ]
 }
