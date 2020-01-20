@@ -13,12 +13,6 @@ const NoMatch = () => (
   </div>
 );
 
-const AlreadyLogged = () => (
-  <div className="app-content">
-    <h3>You are alredy logged my friend :)</h3>
-  </div>
-);
-
 interface IProps {
   isUserLogged: boolean;
 }

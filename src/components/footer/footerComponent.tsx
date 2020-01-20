@@ -24,7 +24,7 @@ class FooterComponent extends React.Component<IProps, IState> {
                             <Link to="/cookie-policy">Cookies Policy</Link> | <Link to="/personal-data-policy">Personal Data Policy</Link>
                         </div>
                         <div className="web-footer-content social-links">
-                            <a style={{ fontSize: 20 }} href="https://www.facebook.com/vas4oo" target="_blank" title="Facebook">
+                            <a style={{ fontSize: 20 }} href="https://www.facebook.com/vas4oo" target="_blank" title="Facebook" rel="noopener noreferrer">
                                 <FontAwesomeIcon icon={faFacebook} />
                             </a>
                         </div>

@@ -6,7 +6,8 @@
             "releaseDate": "23.07.2010",
             "director": "Christopher Nolan",
             "imdbLink": "https://www.imdb.com/title/tt1375666/",
-            "imgSrc": "./assets/images/inception-poster.jpg"
+            "imgSrc": "./assets/images/inception-poster.jpg",
+            "desc": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O."
         },
         {
             "movieId": 2,
@@ -14,7 +15,8 @@
             "releaseDate": "15.10.1999",
             "director": "David Fincher",
             "imdbLink": "https://www.imdb.com/title/tt0137523/?ref_=tt_sims_tt",
-            "imgSrc": "./assets/images/fight-club.jpg"
+            "imgSrc": "./assets/images/fight-club.jpg",
+            "desc": "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more."
         }
     ]
 }

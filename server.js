@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken')
 const server = jsonServer.create()
 const router = jsonServer.router('./db.json')
 const userdb = JSON.parse(fs.readFileSync('./users.json', 'UTF-8'))
+const database = JSON.parse(fs.readFileSync('./db.json'))
+
 
 server.use(bodyParser.urlencoded({ extended: true }))
 server.use(bodyParser.json())
@@ -29,6 +31,10 @@ function verifyToken(token) {
 // Check if the user exists in database
 function isAuthenticated({ username, password }) {
     return userdb.users.findIndex(user => user.username === username && user.password === password) !== -1
+}
+
+function checkIsAdmin({ username, password }) {
+    return userdb.users.find(user => user.username === username && user.password === password).isAdmin;
 }
 
 // Register New User
@@ -79,7 +85,6 @@ server.post('/auth/register', (req, res) => {
 // Login to one of the users from ./users.json
 server.post('/auth/login', (req, res) => {
     console.log("login endpoint called; request body:");
-    console.log(res)
     console.log(req.body);
     const { username, password } = req.body;
     if (isAuthenticated({ username, password }) === false) {
@@ -88,9 +93,141 @@ server.post('/auth/login', (req, res) => {
         res.status(status).json({ status, message })
         return
     }
-    const access_token = createToken({ username, password })
+    const isAdmin = checkIsAdmin({ username, password });
+    const access_token = createToken({ username, password, isAdmin })
     console.log("Access Token:" + access_token);
     res.status(200).json({ access_token })
+})
+
+server.get('/movies', (req, res) => {
+    console.log('Get movies');
+    const movies = database.movies;
+    res.status(200).json({ movies });
+});
+
+server.get('/movies/:id', (req, res) => {
+    let id = req.params.id;
+    console.log('Get movie by id ' + id);
+    const movie = database.movies.find(movie => movie.movieId === +id);
+    if (!movie || movie === undefined) {
+        const status = 404
+        const message = 'Movie not found'
+        res.status(status).json({ status, message })
+        return
+    }
+    res.status(200).json({ movie });
+});
+
+server.post('/movies', (req, res) => {
+    const movie = req.body;
+    console.log('create movie')
+    var last_item_id = database.movies.length;
+    movie.movieId = last_item_id + 1;
+    database.movies.push(movie);
+    fs.readFile("./db.json", (err, data) => {
+        if (err) {
+            const status = 401
+            const message = err
+            res.status(status).json({ status, message })
+            return
+        };
+
+        // Get current users data
+        var data = JSON.parse(data.toString());
+
+        //Add new user
+        data.movies.push(movie); //add some data
+        var writeData = fs.writeFile("./db.json", JSON.stringify(data), (err, result) => {  // WRITE
+            if (err) {
+                const status = 401
+                const message = err
+                res.status(status).json({ status, message })
+                return
+            }
+        });
+    });
+    res.status(200).json(true)
+})
+
+server.put('/movies', (req, res) => {
+    const movie = req.body;
+    console.log('update movie')
+    const movieIndex = database.movies.findIndex(moviedb => moviedb.movieId === movie.movieId);
+    if (movieIndex === -1) {
+        const status = 404
+        const message = 'Movie not found'
+        res.status(status).json({ status, message })
+        return
+    }
+
+    database.movies.splice(movieIndex, 1, movie)
+
+    fs.readFile("./db.json", (err, data) => {
+        if (err) {
+            const status = 401
+            const message = err
+            res.status(status).json({ status, message })
+            return
+        };
+
+        // Get current users data
+        var data = JSON.parse(data.toString());
+
+        //Add new user
+        data.movies.splice(movieIndex, 1, movie); //add some data
+        var writeData = fs.writeFile("./db.json", JSON.stringify(data), (err, result) => {  // WRITE
+            if (err) {
+                const status = 401
+                const message = err
+                res.status(status).json({ status, message })
+                return
+            }
+        });
+    });
+    res.status(200).json(true)
+})
+
+server.delete('/movies/:id', (req, res) => {
+    let id = req.params.id;
+    console.log("Delete by id ", id);
+    const movieIndex = database.movies.findIndex(movie => movie.movieId === +id);
+    if (movieIndex === -1) {
+        const status = 404
+        const message = 'Movie not found'
+        res.status(status).json({ status, message })
+        return
+    }
+    //remove from instance that is in this file
+    database.movies.splice(movieIndex, 1);
+
+    //remove from file
+    fs.readFile("./db.json", (err, data) => {
+        if (err) {
+            const status = 401
+            const message = err
+            res.status(status).json({ status, message })
+            return
+        };
+
+        // Get current users data
+        var data = JSON.parse(data.toString());
+
+        data.movies.splice(movieIndex, 1);
+        for (let i = 0; i < data.movies.length; i++) {
+            data.movies[i].movieId = i + 1;
+            database.movies[1].movieId = i + 1;
+        }
+        var writeData = fs.writeFile("./db.json", JSON.stringify(data), (err, result) => {  // WRITE
+            if (err) {
+                const status = 401
+                const message = err
+                res.status(status).json({ status, message })
+                return
+            }
+        });
+    });
+
+    res.status(200).json(true)
 })
 
 server.use(/^(?!\/auth).*$/, (req, res, next) => {

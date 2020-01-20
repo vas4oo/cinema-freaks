@@ -5,4 +5,5 @@ export class MovieModel {
     public director: string;
     public imdbLink: string;
     public imgSrc: string;
+    public desc: string;
 }

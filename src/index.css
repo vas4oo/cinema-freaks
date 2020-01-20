@@ -241,19 +241,72 @@ a.active .app-navigation-item {
   cursor: pointer;
 }
 
+.movie-item:hover .movie-image{
+  border: 1px solid #8484e6;
+}
+
+.movie-item:hover .movie-title{
+  padding-bottom: 2px;
+  border-bottom: 1px solid #8484e6;
+}
+
 .movie-image{
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .movie-title{
   width: 100%;
-  height: 20px;
+  padding-bottom: 3px;
 }
 
 .release-date{
+  padding-top: 3px;
   width: 100%;
   color: gray;
   font-size: 12px;
+}
+
+.movie-popup-container{
+  display: flex;
+  align-items: center;
+}
+
+.img-popup{
+  margin-right: 20px;
+}
+
+.movie-popup-content{
+  height: 100%;
+}
+
+.movie-popup-content h1{
+  color: #2b415f;
+}
+
+.movie-popup-content span{
+  color: gray;
+  font-size: 12px;
+}
+
+.movie-popup-content p{
+  font-style: italic;
+}
+
+.movie-popup-content a{
+  float: right;
+}
+
+.movie-popup-buttons{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.movie-add-edit-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 @media only screen and (min-width: 500px) {
