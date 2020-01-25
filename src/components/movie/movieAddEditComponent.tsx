@@ -8,6 +8,11 @@ import TextArea from '@material-ui/core/TextareaAutosize'
 import Spinner from '../../common/components/spinner/spinner';
 import Growl from '../../common/components/growl/growl';
 import MainService from '../../services/mainService';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    DatePicker,
+} from '@material-ui/pickers';
 
 interface IProps {
     dialogOpen: boolean;
@@ -88,6 +93,12 @@ class MovieAddEditPopup extends React.Component<IProps, IState> {
         }
     }
 
+    handleDateChange = (date) => {
+        const movie = { ...this.state.movie };
+        movie.releaseDate = date;
+        this.setState({ movie: { ...movie } })
+    };
+
     render() {
         const { movie, isLoading, title } = this.state;
         return (
@@ -117,13 +128,22 @@ class MovieAddEditPopup extends React.Component<IProps, IState> {
                                 style={{ width: '100%', paddingBottom: 15 }}
                                 value={movie.director || ''}
                                 onChange={(e) => this.handleChange('director', e.target['value'])}></TextField>
-                            <TextField
-                                autoComplete="off"
-                                label="Release date"
-                                type="text"
-                                style={{ width: '100%', paddingBottom: 15 }}
-                                value={movie.releaseDate || ''}
-                                onChange={(e) => this.handleChange('releaseDate', e.target['value'])}></TextField>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <DatePicker
+                                    format="dd/MM/yyyy"
+                                    disableFuture
+                                    label="Release dade"
+                                    value={movie.releaseDate ? new Date(movie.releaseDate) : new Date()}
+                                    onChange={this.handleDateChange}
+                                />
+                                {/* <TextField
+                                    autoComplete="off"
+                                    label="Release date"
+                                    type="text"
+                                    style={{ width: '100%', paddingBottom: 15 }}
+                                    value={movie.releaseDate || ''}
+                                    onChange={(e) => this.handleChange('releaseDate', e.target['value'])}></TextField> */}
+                            </MuiPickersUtilsProvider>
                             <TextField
                                 autoComplete="off"
                                 label="Imdb Link"

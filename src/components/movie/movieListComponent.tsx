@@ -122,7 +122,7 @@ class MovieListComponent extends React.Component<IProps, IState>{
             <div className="app-content">
                 <Growl ref={(el) => this.growl = el} />
                 {isLoading ? <Spinner /> : null}
-                {this.authService.getProfile().isAdmin ?
+                {this.authService.getProfile() !== null && this.authService.getProfile().isAdmin ?
                     <Button variant="contained" color="primary" onClick={this.addMovie} style={{ marginBottom: 10 }}>
                         <Add />
                     </Button>
@@ -142,7 +142,7 @@ class MovieListComponent extends React.Component<IProps, IState>{
                 <MoviePopup movie={selectedMovie}
                     dialogOpen={showPopup}
                     closeDialog={this.closeDialog}
-                    isAdmin={this.authService.getProfile().isAdmin}
+                    isAdmin={this.authService.getProfile() && this.authService.getProfile().isAdmin}
                     edit={this.edit}
                     delete={this.delete} />
                 {openAddEdit ?
