@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import { Link, NavLink, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBars,
   faChevronLeft,
-  faSearch,
   faTablets,
   faPills,
   faSignOutAlt,
@@ -42,7 +40,7 @@ class HeaderComponent extends React.Component<IProps, IState> {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   handleBackClick = e => {
     e.preventDefault();
@@ -64,22 +62,22 @@ class HeaderComponent extends React.Component<IProps, IState> {
 
   closeDialog = (showSuccess?: boolean) => {
     this.setState({ isLoginDialogOpen: false });
-    if (showSuccess)
+    if (showSuccess) {
       this.growl.show({
         severity: "success",
         summary: "Login complete"
       });
+      this.props.history.push(`/`)
+    }
   };
+
+  handleRegister = () => {
+    this.closeDialog();
+    this.props.history.push(`/register`);
+  }
 
   render() {
     const { isLoginDialogOpen } = this.state;
-
-    const SearchContent = React.forwardRef((props, ref) => (
-      <FontAwesomeIcon
-        size={window.innerWidth < Constants.device.desktop ? "1x" : "lg"}
-        icon={faSearch}
-      />
-    ));
 
     const LogoutContent = React.forwardRef((props, ref) => (
       <FontAwesomeIcon icon={faSignOutAlt} size="lg" />
@@ -115,55 +113,42 @@ class HeaderComponent extends React.Component<IProps, IState> {
               {window.innerWidth < Constants.device.desktop ? (
                 backButton
               ) : (
-                <>
-                  {backButton}
-                  <NavLink exact to="/">
-                    <div className="app-navigation-item">
-                      {window.innerWidth < Constants.device.desktop ? (
-                        <FontAwesomeIcon
-                          icon={faTablets}
-                          size="2x"
-                          style={{ margin: "5px" }}
-                        />
-                      ) : null}
-                      Home
+                  <>
+                    {backButton}
+                    <NavLink exact to="/">
+                      <div className="app-navigation-item">
+                        {window.innerWidth < Constants.device.desktop ? (
+                          <FontAwesomeIcon
+                            icon={faTablets}
+                            size="2x"
+                            style={{ margin: "5px" }}
+                          />
+                        ) : null}
+                        Home
                     </div>
-                  </NavLink>
+                    </NavLink>
 
-                  <NavLink exact to="/movies">
-                    <div className="app-navigation-item">
-                      {window.innerWidth < Constants.device.desktop ? (
-                        <FontAwesomeIcon
-                          icon={faPills}
-                          size="2x"
-                          style={{ margin: "5px" }}
-                        />
-                      ) : null}
-                      Movies
+                    <NavLink exact to="/movies">
+                      <div className="app-navigation-item">
+                        {window.innerWidth < Constants.device.desktop ? (
+                          <FontAwesomeIcon
+                            icon={faPills}
+                            size="2x"
+                            style={{ margin: "5px" }}
+                          />
+                        ) : null}
+                        Movies
                     </div>
-                  </NavLink>
-                </>
-              )}
+                    </NavLink>
+                  </>
+                )}
             </div>
 
             <div className="app-header-center">
-              <Link to="/">Movie freaks</Link>
+              <Link to="/">MOVIE FREAKS</Link>
             </div>
 
             <div className="app-header-right">
-              <div
-                className="app-header-item"
-                style={
-                  {
-                    /* background: '#2196f3' */
-                  }
-                }
-              >
-                <Tooltip title={"Search"}>
-                  <SearchContent />
-                </Tooltip>
-              </div>
-
               {this.authService.isAuthenticated() ? (
                 <>
                   <div
@@ -176,24 +161,21 @@ class HeaderComponent extends React.Component<IProps, IState> {
                   </div>
                 </>
               ) : (
-                <div
-                  className="app-header-item user-menu-web"
-                  onClick={this.handleLogin}
-                >
-                  <Tooltip title={"Login"}>
-                    <LoginContent />
-                  </Tooltip>
-                </div>
-              )}
-
-              <div className="app-header-item user-menu">
-                <FontAwesomeIcon icon={faBars} />
-              </div>
+                  <div
+                    className="app-header-item user-menu-web"
+                    onClick={this.handleLogin}
+                  >
+                    <Tooltip title={"Login"}>
+                      <LoginContent />
+                    </Tooltip>
+                  </div>
+                )}
             </div>
           </div>
           <LoginComponent
             dialogOpen={isLoginDialogOpen}
             closeDialog={this.closeDialog}
+            handleRegister={this.handleRegister}
           />
         </div>
       </>

@@ -32,6 +32,19 @@ class AuthService {
       .catch(error => Promise.reject(error));
   }
 
+  createUser(user) {
+    return axios({
+      url: `http://localhost:8000/auth/register`,
+      method: "post",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      data: user
+    })
+      .then(res => res.data)
+      .catch(error => Promise.reject(error));
+  }
+
   logout() {
     window.localStorage.removeItem("id_token");
   }

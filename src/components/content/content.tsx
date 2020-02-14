@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import HomeComponent from "../home/homeComponent";
 import MovieListComponent from "../movie/movieListComponent";
 import AuthService from "../../services/authService";
+import RegisterComponent from '../login/registerComponent';
 
 const NoMatch = () => (
   <div className="app-content">
@@ -29,6 +30,7 @@ class Content extends React.Component<IProps, IState> {
           <Route exact path="/" component={HomeComponent} />
           <Route exact path="/index.html" component={HomeComponent} />
           <Route exact path="/movies" component={MovieListComponent} />
+          <Route exact path="/register" component={this.аuthService.isAuthenticated() ? NoMatch : RegisterComponent} />
 
           {/* <Route exact path="/user/dashboard"
             component={this.аuthService.isAuthenticated() ? UserDashboardComponent : NotAuthenticatedComponent} /> */}

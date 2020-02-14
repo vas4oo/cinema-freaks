@@ -11,6 +11,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { MuiThemeProvider } from '@material-ui/core';
+import * as Constants from '../../common/constants';
 
 interface IProps {
   history: any;
@@ -18,6 +20,7 @@ interface IProps {
   userLogin?: any;
   dialogOpen: boolean;
   closeDialog: any;
+  handleRegister: any;
 }
 
 interface IState {
@@ -108,58 +111,71 @@ class LoginComponent extends React.Component<IProps, IState> {
       });
   };
 
-  redirectAfterLogin() {
-    //this.props.onUserLogin();
-    this.props.history.push(`/`);
+  handleRegister = () => {
+    this.props.history.push(`/register`);
   }
 
   public render() {
     const { isLoading, user } = this.state;
 
     return (
-      <Dialog
-        open={this.props.dialogOpen}
-        onClose={() => this.props.closeDialog(false)}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Login</DialogTitle>
-        <DialogContent>
-          {isLoading ? <Spinner /> : null}
-          <Growl ref={el => (this.growl = el)} />
-          <div className="login-container">
-            <div style={{ marginBottom: 10 }}>
-              <TextField
-                name="username"
-                label="Username"
-                type="username"
-                value={user && user.username ? user.username : ""}
-                onChange={e => this.handleChange("username", e.target["value"])}
-              />
+      <MuiThemeProvider theme={Constants.loginPopup}>
+        <Dialog
+          open={this.props.dialogOpen}
+          onClose={() => this.props.closeDialog(false)}
+          aria-labelledby="form-dialog-title"
+          fullWidth
+        >
+          <DialogTitle id="form-dialog-title">Login</DialogTitle>
+          <DialogContent>
+            {isLoading ? <Spinner /> : null}
+            <Growl ref={el => (this.growl = el)} />
+            <div className="login-container">
+              <div style={{ marginBottom: 10 }}>
+                <TextField
+                  style={{ width: '100%' }}
+                  name="username"
+                  label="Username"
+                  type="username"
+                  value={user && user.username ? user.username : ""}
+                  onChange={e => this.handleChange("username", e.target["value"])}
+                />
+              </div>
+              <div>
+                <TextField
+                  style={{ width: '100%' }}
+                  type="password"
+                  name="password"
+                  label="Password"
+                  onKeyPress={this.handleKeyPress}
+                  onChange={e => this.handleChange("password", e.target["value"])}
+                  value={user && user.password ? user.password : ""}
+                />
+              </div>
             </div>
-            <div>
-              <TextField
-                type="password"
-                name="password"
-                label="Password"
-                onKeyPress={this.handleKeyPress}
-                onChange={e => this.handleChange("password", e.target["value"])}
-                value={user && user.password ? user.password : ""}
-              />
+          </DialogContent>
+          <DialogActions>
+            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginTop: 10 }}>
+              <div>
+                <Button color="primary" onClick={this.props.handleRegister}>
+                  Register
+              </Button>
+              </div>
+              <div>
+                <Button color="primary" onClick={this.handleLoginButton}>
+                  Login
+              </Button>
+                <Button
+                  onClick={() => this.props.closeDialog(false)}
+                  color="secondary"
+                >
+                  Cancel
+              </Button>
+              </div>
             </div>
-          </div>
-        </DialogContent>
-        <DialogActions>
-          <Button color="primary" onClick={this.handleLoginButton}>
-            Login
-          </Button>
-          <Button
-            onClick={() => this.props.closeDialog(false)}
-            color="secondary"
-          >
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
+          </DialogActions>
+        </Dialog>
+      </MuiThemeProvider>
     );
   }
 }

@@ -43,12 +43,15 @@ server.post('/auth/register', (req, res) => {
     console.log(req.body);
     const { username, password, firtsName, lastName } = req.body;
 
-    if (isAuthenticated({ username, password }) === true) {
+    if (userdb.users.find(user => user.username === username)) {
         const status = 401;
-        const message = 'Username and Password already exist';
+        const message = 'Username already exist';
         res.status(status).json({ status, message });
         return
     }
+
+    var last_item_id = userdb.users[userdb.users.length - 1].id;
+    userdb.users.push({ id: last_item_id + 1, username: username, password: password, firtsName: firtsName, lastName: lastName, isAdmin: false });
 
     fs.readFile("./users.json", (err, data) => {
         if (err) {
@@ -60,9 +63,6 @@ server.post('/auth/register', (req, res) => {
 
         // Get current users data
         var data = JSON.parse(data.toString());
-
-        // Get the id of last user
-        var last_item_id = data.users[data.users.length - 1].id;
 
         //Add new user
         data.users.push({ id: last_item_id + 1, username: username, password: password, firtsName: firtsName, lastName: lastName, isAdmin: false }); //add some data
